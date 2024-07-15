@@ -1,0 +1,120 @@
+.tiptap {
+  outline: none;
+  padding: 16px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  line-height: 2rem;
+ /* border: 2px solid rgb(48, 210, 48); */
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+.tiptap h1 {
+  display: block;
+  font-size: 2em; 
+  font-weight: bold;
+  line-height: 1.2; 
+  margin-top: 0.67em; 
+  margin-bottom: 0.67em; 
+  margin-left: 0; 
+  margin-right: 0; 
+}
+
+.tiptap h2 {
+  display: block;
+  font-size: 1.5em; 
+  font-weight: bold;
+  line-height: 1.2; 
+  margin-top: 0.83em; 
+  margin-bottom: 0.83em; 
+  margin-left: 0; 
+  margin-right: 0; 
+}
+
+.tiptap h3 {
+  display: block;
+  font-size: 1.17em; 
+  font-weight: bold;
+  line-height: 1.2; 
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  margin-left: 0; 
+  margin-right: 0; 
+}
+
+.tiptap ul {
+  list-style-type: disc; 
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  margin-left: 0; 
+  margin-right: 0; 
+  padding-left: 40px; 
+}
+
+.tiptap ol {
+  list-style-type: decimal; 
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  margin-left: 0; 
+  margin-right: 0; 
+  padding-left: 40px; 
+}
+
+.tiptap ul li,
+.tiptap ol li {
+  margin-bottom: 0.5em;
+}
+
+.tiptap ul ul,
+.tiptap ul ol,
+.tiptap ol ul,
+.tiptap ol ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.tiptap a {
+  color: #3b82f6;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tiptap blockquote {
+  border-left: 4px solid #6b7280;
+  padding-left: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.tiptap pre {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.tiptap code {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+.tiptap pre code {
+  background: none;
+  padding: 0;
+}
+
+.tiptap::-webkit-scrollbar-thumb {
+  background-color: #4ade80;
+  border-radius: 10px;
+  border: 3px solid #1f2937;
+}
+
+.tiptap::-webkit-scrollbar-thumb:hover {
+  background-color: #34d399;
+}
