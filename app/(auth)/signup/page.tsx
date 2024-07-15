@@ -31,7 +31,7 @@ const page = () => {
         <p className="text-center text-gray-400 mb-6">
           Join our community today! Create an account to unlock exclusive features and personalized experiences.
         </p>
-        <div>
+        <div className='space-y-6'>
           <Input placeholder='Enter your Name' type='text' onChange={(e) => {
             setName(e.target.value)
           }} />
@@ -41,7 +41,9 @@ const page = () => {
           <Input placeholder='Enter your password' type='password' onChange={(e) => {
             setPassword(e.target.value)
           }} />
+          <div className='flex items-center justify-center'>
           <Button buttonlabel={'Sign Up'} onClick={handlesubmit} />
+          </div>
           <div className="text-center mt-4">
             <Link href={'/signin'} className="text-gray-400 hover:underline">Already have an account? Sign in</Link>
           </div>

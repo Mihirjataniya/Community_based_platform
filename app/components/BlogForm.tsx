@@ -1,34 +1,26 @@
 import React from 'react';
 import TiptapEditor from '../TitptapEditor/Tiptap';
+import Input from './ui/Input';
+import Button from './ui/Button';
 
 const BlogForm = () => {
   return (
     <div className="space-y-6">
+      <h1 className="text-xl font-semibold text-green-400">Post a Blog</h1>
       <div className="space-y-4">
-        <input
-          type="text"
-          placeholder="Title"
-          className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
-        <input
-          type="text"
-          placeholder="Description"
-          className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
+        <Input type='text' placeholder='Title' />
+        <Input type='text' placeholder='Description' />
       </div>
       <div className="space-y-2">
         <h1 className="text-xl font-semibold text-green-400">Cover Image</h1>
-        <input
-          type="file"
-          className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
+        <Input type="file" />
       </div>
       <h1 className="text-xl font-semibold text-green-400">Content</h1>
       <TiptapEditor />
       <div className="text-center">
-        <button className="bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-600 transition-colors duration-300">
-          Post
-        </button>
+        <Button buttonlabel='Post Blog' onClick={() => {
+
+        }} />
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ export async function POST(req:NextRequest) {
                 userId: id,
                 title: body.title,
                 content: body.content,
+                imageUrl: body.imageUrl
             }
         })
         const {title,content} = response

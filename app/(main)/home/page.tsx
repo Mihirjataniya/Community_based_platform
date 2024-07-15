@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import BlogForm from '@/app/components/BlogForm';
 import { CircleX } from 'lucide-react';
+import EventForm from '@/app/components/EventForm';
+import QuestionForm from '@/app/components/QuestionForm';
 
 
 const MainComponent = () => {
@@ -41,64 +43,8 @@ const MainComponent = () => {
             <CircleX size={28}/>
             </button>
             {showForm === 'blog' && <BlogForm />}
-            {showForm !== 'blog' && (
-              <form className="space-y-4">
-                <h2 className="text-2xl font-bold text-green-400">
-                  {showForm === 'question' && 'Post a Question'}
-                  {showForm === 'event' && 'Post an Event'}
-                </h2>
-                <input
-                  type="text"
-                  placeholder="Title"
-                  className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  required
-                />
-                {showForm !== 'event' && (
-                  <textarea
-                    placeholder="Content"
-                    rows={5}
-                    className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    required
-                  />
-                )}
-                {showForm === 'event' && (
-                  <>
-                    <textarea
-                      placeholder="Description"
-                      rows={3}
-                      className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Location"
-                      className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Organizer"
-                      className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                      required
-                    />
-                    <input
-                      type="date"
-                      className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Image URL"
-                      className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                      required
-                    />
-                  </>
-                )}
-                <button type="submit" className="w-full py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition duration-200">
-                  Submit
-                </button>
-              </form>
-            )}
+            {showForm === 'event' && <EventForm />}
+            {showForm === 'question' && <QuestionForm />}
           </div>
         </div>
       )}

@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react';
-import TiptapEditor from '../TitptapEditor/Tiptap';
-import BlogForm from '../components/BlogForm';
+import EventForm from '../components/EventForm';
 
 export default function Home() {
   const [post, setPost] = useState('');
@@ -44,7 +43,7 @@ export default function Home() {
         </p>
       )} */}
       <div>
-        <BlogForm />
+        <EventForm />
       </div>
     </div>
   
