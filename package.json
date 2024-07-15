@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@edgestore/react": "^0.2.0",
+    "@edgestore/server": "^0.2.0",
     "@prisma/client": "^5.16.1",
     "@tiptap/extension-blockquote": "^2.4.0",
     "@tiptap/extension-link": "^2.4.0",

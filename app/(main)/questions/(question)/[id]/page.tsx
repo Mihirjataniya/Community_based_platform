@@ -7,6 +7,8 @@ import { FetchQuestion } from '@/app/actions/FetchQuestion';
 import formatDate from '@/app/actions/DateFormat';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import Textarea from '@/app/components/ui/Textarea';
+import Button from '@/app/components/ui/Button';
 
 interface Comment {
     id: string;
@@ -24,6 +26,7 @@ interface Question {
     createdAt: Date;
     username: string;
     comments: Comment[];
+    imageUrl : string | null
 }
 
 const QuestionPage: React.FC = () => {
@@ -32,7 +35,7 @@ const QuestionPage: React.FC = () => {
     const [expandedComments, setExpandedComments] = useState<string[]>([]);
 
     const [newComment, setNewComment] = useState<string>('');
-    const {data: session,status} = useSession()
+    const { data: session, status } = useSession()
     const userId = session?.user.id
     const postId = route.split("/")[2];
     useEffect(() => {
@@ -41,12 +44,10 @@ const QuestionPage: React.FC = () => {
             if (response) {
                 setQuestion(response);
 
-                const initialLikedState: Record<string, boolean> = {};
-                ;
             }
         };
         fetchData();
-    }, [route,newComment]);
+    }, [route, newComment]);
 
     const toggleComment = (id: string) => {
         setExpandedComments((prev) =>
@@ -56,12 +57,12 @@ const QuestionPage: React.FC = () => {
 
     const handleAddComment = async () => {
         if (newComment.trim() !== '') {
-            const response = await axios.post("/api/addcomment",{
+            const response = await axios.post("/api/addcomment", {
                 userId: userId,
                 postId: postId,
                 content: newComment
             })
-            console.log('Comment submitted:', newComment,response);
+            console.log('Comment submitted:', newComment, response);
             setNewComment('');
         }
     };
@@ -81,25 +82,22 @@ const QuestionPage: React.FC = () => {
                             </p>
                         </div>
                         <p className="text-lg text-gray-300 mb-8">{question.content}</p>
-
+                        {question.imageUrl && <img src={question.imageUrl}/>}
                         <div className="w-full bg-gray-800 p-6 rounded-lg my-5 shadow-lg mt-6">
                             <h2 className="text-2xl font-bold text-green-400 mb-4">Add a Comment</h2>
-                            <div className="flex items-center gap-4">
+                            <div className="relative">
                                 <div className="flex-1">
-                                    <input
+                                    <Textarea
                                         placeholder="Write your comment here..."
                                         onChange={(e) => setNewComment(e.target.value)}
                                         type="text"
-                                        className='w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500'
                                     />
                                 </div>
-                                <div>
-                                    <button
+                                <div className='absolute top-1/2 right-4 transform -translate-y-1/2'>
+                                    <Button
                                         onClick={handleAddComment}
-                                        className="bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition duration-200 px-4 py-2"
-                                    >
-                                        Add
-                                    </button>
+                                        buttonlabel='Add'
+                                    />
                                 </div>
                             </div>
                         </div>

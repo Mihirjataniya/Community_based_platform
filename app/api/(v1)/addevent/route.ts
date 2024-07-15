@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json()
+        const newdate =new Date(body.date).toISOString()
         const id = body.userId
         if(!id){
             return NextResponse.json({
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
             data: {
                 title: body.title,
                 description: body.description,
-                date: body.date,
+                date: newdate,
                 location: body.location,
                 organizer: body.organizer,
                 userId: id,

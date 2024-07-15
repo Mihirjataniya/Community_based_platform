@@ -11,6 +11,7 @@ export async function FetchQuestion(postId:string) {
                 title:true,
                 content: true,
                 createdAt: true,
+                imageUrl: true,
                 user:{
                     select:{
                         username:true
@@ -42,7 +43,8 @@ export async function FetchQuestion(postId:string) {
                 content: response.content,
                 createdAt : response.createdAt,
                 username: response.user.username,
-                comments : response.comments
+                comments : response.comments,
+                imageUrl : response.imageUrl
             }
         }else {
             return undefined

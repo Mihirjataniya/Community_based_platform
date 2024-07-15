@@ -1,23 +1,31 @@
 'use client'
 import { useState } from 'react';
 import EventForm from '../components/EventForm';
+import { useEdgeStore } from '@/lib/edgestore';
+import Link from 'next/link';
 
 export default function Home() {
   const [post, setPost] = useState('');
   const [result, setResult] = useState('');
- 
-  const handleSubmit = async (e:any) => {
-    e.preventDefault();
-    const response = await fetch('/api/test', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ text: post }),
-    });
-    const data = await response.json();
-    setResult(data.result);
-  };
+  const [file,setFile] = useState<File>()
+  const {edgestore} = useEdgeStore()
+  const [urls,setUrls] = useState<{
+    url: string,
+    thumbnailUrl: string | null
+  }>()
+  const [progress,setProgress] = useState(0)
+  // const handleSubmit = async (e:any) => {
+  //   e.preventDefault();
+  //   const response = await fetch('/api/test', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ text: post }),
+  //   });
+  //   const data = await response.json();
+  //   setResult(data.result);
+  // };
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200 flex items-center justify-center p-5">
@@ -42,8 +50,38 @@ export default function Home() {
           Moderation Result: {result}
         </p>
       )} */}
-      <div>
-        <EventForm />
+      <div className='flex flex-col gap-4'>
+        <input type='file' onChange={(e)=>{
+          setFile(e.target.files?.[0])
+        }} />
+        <div className='h-[8px] w-44 border rounded overflow-hidden'>
+          <div className='h-full bg-white transition-all duration-200'
+          style={{
+            width: `${progress}%`
+          }}
+          >
+          </div>
+        </div>
+        <button className='bg-white text-black p-5 rounded' onClick={ async ()=>{
+          if(file){
+            const res = await edgestore.publicFiles.upload({
+              file,
+              onProgressChange: (progress) => {
+                setProgress(progress)
+              }
+            })
+            setUrls({
+              url: res.url,
+              thumbnailUrl: res.thumbnailUrl
+            })
+          }
+          
+        }}>
+        </button>
+        <div className='mt-10 text-green-500 flex flex-col gap-6'>
+          {urls?.url && <Link href={urls.url} target='_blank'>{urls.url}</Link>}
+          {urls?.thumbnailUrl && <Link href={urls.thumbnailUrl} target='_blank'>{urls.thumbnailUrl}</Link>}
+        </div>
       </div>
     </div>
   

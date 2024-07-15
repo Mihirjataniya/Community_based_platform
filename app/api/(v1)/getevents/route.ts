@@ -14,6 +14,9 @@ export async function GET() {
                 location: true,
                 organizer: true,
                 imageUrl: true
+            },
+            orderBy: {
+                "createdAt":"desc"
             }
         })
         const Eventdata = response.map(event=>({

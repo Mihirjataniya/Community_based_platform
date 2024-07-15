@@ -10,6 +10,7 @@ export async function GET(){
                 title:true,
                 content:true,
                 createdAt:true,
+                imageUrl:true,
                 user:{
                     select: {
                         username: true,
@@ -31,7 +32,8 @@ export async function GET(){
             content: post.content,
             date: post.createdAt,
             username: post.user.username,
-            commentsCount: post._count.comments
+            commentsCount: post._count.comments,
+            imageUrl : post.imageUrl
         }))
 
         return NextResponse.json(Postdata,
