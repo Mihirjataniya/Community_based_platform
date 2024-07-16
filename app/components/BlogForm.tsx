@@ -5,6 +5,7 @@ import Button from './ui/Button';
 import ImageUpload from './ui/ImageUpload';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface UploadedUrls {
   url: string;
@@ -15,6 +16,7 @@ const BlogForm = () => {
   const [imageUrls, setImageUrls] = useState<UploadedUrls | null>(null);
   const [title, setTitle] = useState<String>()
   const [description, setDescription] = useState<String>()
+ 
   const handleUploadSuccess = (urls: UploadedUrls) => {
     setImageUrls(urls);
   };
@@ -27,13 +29,13 @@ const BlogForm = () => {
 
   const PostBlog = async () => {
     try {
-      const response = await axios.post("/api/addblog", {
-        title: title,
-        description: description,
-        content: editorData,
-        authorId: userId,
-        imageUrl: imageUrls?.url,
-      })
+        const response = await axios.post("/api/addblog", {
+          title: title,
+          description: description,
+          content: editorData,
+          authorId: userId,
+          imageUrl: imageUrls?.url,
+        })
     } catch (error) {
       console.log(error);
     }

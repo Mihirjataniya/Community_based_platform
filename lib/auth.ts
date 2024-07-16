@@ -14,8 +14,6 @@ export const NEXT_AUTH: NextAuthOptions = {
         password: { label: 'Password', type: 'password', placeholder: 'Enter password' },
       },
       async authorize(credentials) {
-        console.log("Entered*************");
-        
         if (!credentials) {
           return null;
         }
@@ -51,9 +49,14 @@ export const NEXT_AUTH: NextAuthOptions = {
       }
       return session;
     },
+    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+      return '/home';
+    },
   },
   pages: {
     signIn: '/auth/signin',
   },
+
+  
  
 };

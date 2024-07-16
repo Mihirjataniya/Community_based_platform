@@ -16,6 +16,7 @@ const QuestionForm = () => {
     const [description, setDescription] = useState<String>()
     const [imageUrls, setImageUrls] = useState<UploadedUrls | null>(null);
     const { data: session,status} = useSession()
+ 
     const userId = session?.user.id
     const handleUploadSuccess = (urls: UploadedUrls) => {
         setImageUrls(urls);
@@ -27,9 +28,7 @@ const QuestionForm = () => {
                 title: title,
                 content : description,
                 imageUrl : imageUrls?.url
-           }) 
-           console.log(response);
-           
+           })  
         } catch (error) {
             console.log(error);
         }

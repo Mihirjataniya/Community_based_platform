@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import Logo from "./components/ui/Logo";
+import Button from "./components/ui/Button";
 
 //@ts-ignore
 const Feature = ({ icon: Icon, title, description }) => (
@@ -26,10 +27,10 @@ const Story = ({ text, author }) => (
 );
 
 
-const Card = ({ title, description, buttonText }:{
-    title:string,
-    description:string
-    buttonText?:string | null
+const Card = ({ title, description, buttonText }: {
+  title: string,
+  description: string
+  buttonText?: string | null
 }) => (
   <div className="bg-gray-800 p-8 rounded-lg shadow-2xl relative mb-8 md:mb-0">
     <h2 className="text-4xl font-bold mb-6 text-green-400">{title}</h2>
@@ -97,17 +98,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">
-      {/* <Head>
-        <title>Campus Crew</title>
-      </Head> */}
       <nav className="bg-gray-800 py-6 px-16 flex justify-between items-center shadow-xl max-sm:flex-col">
         <Logo />
-        <div className="max-sm:mt-4">
-          <Link href={'/signin'} className="bg-green-500 text-gray-900 px-4 py-2 rounded-lg mr-2 hover:bg-green-400 transition duration-300 shadow-lg">
-            Log In
+        <div className="max-sm:mt-4 space-x-4">
+          <Link href={'/signin'}>
+            <Button buttonlabel='Log In' />
           </Link>
-          <Link href={'/signup'} className="bg-green-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300 shadow-lg">
-            Sign Up
+          <Link href={'/signup'}>
+            <Button buttonlabel='Sign Up' />
           </Link>
         </div>
       </nav>
@@ -118,9 +116,9 @@ export default function Home() {
         <p className="mt-3 text-2xl mb-6 text-gray-200">
           Empowering students to connect, share, and grow together in a supportive community.
         </p>
-        <p>
-          {session?.user.id}
-        </p>
+        <Link href={'/home'} >
+          <Button buttonlabel="Get started" />
+        </Link>
       </header>
       <main className="flex flex-col items-center justify-center flex-1 px-5 my-10 text-center space-y-12">
         <section className="w-full max-w-4xl">

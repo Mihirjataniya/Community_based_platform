@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 const page = () => {
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 p-10 rounded-lg shadow-lg w-full max-w-md">
@@ -20,8 +21,8 @@ const page = () => {
             setPassword(e.target.value)
           }} />
           <div className='flex items-center justify-center'>
-          <Button buttonlabel={'Sign in'}  onClick={() => {
-              signIn("credentials", {
+          <Button buttonlabel={'Sign in'}  onClick={ async () => {
+              const response = await signIn("credentials", {
                 email: email,
                 password: password
               },

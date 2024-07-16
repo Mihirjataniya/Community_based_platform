@@ -6,11 +6,13 @@ import BlogForm from '@/app/components/BlogForm';
 import { CircleX } from 'lucide-react';
 import EventForm from '@/app/components/EventForm';
 import QuestionForm from '@/app/components/QuestionForm';
-
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const MainComponent = () => {
   const [showForm, setShowForm] = useState<string | null>(null);
-
+  const router = useRouter()
+  const { data: session, status } = useSession()
   const openForm = (formType: string) => {
     setShowForm(formType);
   };
@@ -40,7 +42,7 @@ const MainComponent = () => {
         <div className="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50 backdrop-blur-sm">
           <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 animate-fade-in max-h-screen overflow-y-auto">
             <button onClick={closeForm} className="absolute top-4 right-4 text-gray-500 hover:text-gray-300 focus:outline-none">
-            <CircleX size={28}/>
+              <CircleX size={28} />
             </button>
             {showForm === 'blog' && <BlogForm />}
             {showForm === 'event' && <EventForm />}
@@ -51,15 +53,40 @@ const MainComponent = () => {
 
       <div className="max-w-6xl mx-auto py-10 px-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          <div onClick={() => openForm('question')} className="cursor-pointer bg-gradient-to-r from-green-400 to-green-600 text-white font-bold p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
+          <div onClick={() => {
+            if (status === "unauthenticated") {
+              router.push("/signin")
+            }
+            else {
+              openForm('question')
+            }
+          }
+          }
+
+            className="cursor-pointer bg-gradient-to-r from-green-400 to-green-600 text-white font-bold p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
             <h2 className="text-3xl">Post a Question</h2>
             <p className="mt-4">Ask questions and get answers from the community.</p>
           </div>
-          <div onClick={() => openForm('event')} className="cursor-pointer bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
+          <div onClick={() => {
+            if (status === "unauthenticated") {
+              router.push("/signin")
+            }
+            else {
+              openForm('event')
+            }
+          }} className="cursor-pointer bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
             <h2 className="text-3xl">Post an Event</h2>
             <p className="mt-4">Share upcoming events with the community.</p>
           </div>
-          <div onClick={() => openForm('blog')} className="cursor-pointer bg-gradient-to-r from-purple-400 to-purple-600 text-white font-bold p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
+          <div onClick={() => {
+            if (status === "unauthenticated") {
+              router.push("/signin")
+            }
+            else {
+              openForm('blog')
+            }
+          }
+          } className="cursor-pointer bg-gradient-to-r from-purple-400 to-purple-600 text-white font-bold p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
             <h2 className="text-3xl">Post a Blog</h2>
             <p className="mt-4">Share your knowledge and experiences through blogs.</p>
           </div>
