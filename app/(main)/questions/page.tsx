@@ -1,11 +1,10 @@
-'use client'
-import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { CalendarCheck, CircleUser, MessageCircle } from 'lucide-react';
 import formatDate from '@/app/actions/DateFormat';
 import Header from '@/app/components/ui/Header';
+import axios from 'axios';
 
-const Page = () => {
+const Page = async () => {
   interface Question {
     postId: number;
     title: string;
@@ -15,19 +14,8 @@ const Page = () => {
     username: string;
     commentsCount: number;
   }
-  const [questions, setQuestions] = useState<Question[]>([])
-  useEffect( ()=>{
-    const getData = async () => {
-      const response = await fetch('/api/getquestions')
-      const data = await response.json()
-      setQuestions(data)
-    }
-   getData()
-  },[])
-  console.log(questions);
-  
-  
-  
+  const response = await axios.get('http://localhost:3000/api/getquestions')
+  const questions = await response.data
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">
       <Header headertext={"Community Questions"} />
@@ -36,16 +24,14 @@ const Page = () => {
         <div className="w-full max-w-6xl">
           <input
             type="text"
-            //value={searchQuery}
-            //onChange={handleSearchChange}
             placeholder="Search for doubts..."
             className="w-full p-4 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
         </div>
         <div className="w-full max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-          {questions.map((question) => (
-              <Link key={question. postId} href={`/questions/${question. postId}`}>
+            {questions.map((question:Question) => (
+              <Link key={question.postId} href={`/questions/${question.postId}`}>
                 <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
                   <h3 className="text-2xl font-bold text-green-400 max-sm:hidden">{question.title}</h3>
                   <h3 className="hidden text-2xl font-bold text-green-400 max-sm:block max-sm:text-lg">{question.title.slice(0, 50)}</h3>

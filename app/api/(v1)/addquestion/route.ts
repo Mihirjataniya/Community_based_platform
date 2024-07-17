@@ -22,7 +22,7 @@ export async function POST(req:NextRequest) {
             }
         })
         const {title,content} = response
-        return NextResponse.json({
+        return NextResponse.json({      
             msg: "Post created successfully",
             title,
             content

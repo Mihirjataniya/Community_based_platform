@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TiptapEditor from '../TitptapEditor/Tiptap';
+import TiptapEditor from '../(main)/blogs/TitptapEditor/Tiptap';
 import Input from './ui/Input';
 import Button from './ui/Button';
 import ImageUpload from './ui/ImageUpload';

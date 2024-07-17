@@ -8,6 +8,7 @@ import EventForm from '@/app/components/EventForm';
 import QuestionForm from '@/app/components/QuestionForm';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import RecentActivities from '@/app/components/RecentEvents';
 
 const MainComponent = () => {
   const [showForm, setShowForm] = useState<string | null>(null);
@@ -148,6 +149,7 @@ const MainComponent = () => {
           </div>
         </div>
       </div>
+      {/* <RecentActivities /> */}
     </div>
   );
 };

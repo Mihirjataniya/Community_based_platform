@@ -29,7 +29,7 @@ interface Question {
     imageUrl : string | null
 }
 
-const QuestionPage: React.FC = () => {
+const QuestionPage = () => {
     const route = usePathname();
     const [question, setQuestion] = useState<Question>();
     const [expandedComments, setExpandedComments] = useState<string[]>([]);
