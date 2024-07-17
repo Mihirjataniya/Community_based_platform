@@ -28,7 +28,7 @@ const Navbar = () => {
         <Logo />
         <div className="flex items-center space-x-8 border border-green-400 bg-gray-700 py-2 px-6 rounded-3xl max-sm:hidden">
           {navItems.map((item) => (
-            <Link className={`text-lg font-semibold transition duration-300 ${pathname === item.href ? 'text-green-400' : 'text-gray-200 hover:text-green-400'
+            <Link className={`text-lg font-semibold transition duration-300 ${pathname.startsWith(item.href) ? 'text-green-400' : 'text-gray-200 hover:text-green-400'
               }`} key={item.href} href={item.href}>
               {item.label}
             </Link>
