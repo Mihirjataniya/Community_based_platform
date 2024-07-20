@@ -4,12 +4,13 @@ import { ReactNode } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import { EdgeStoreProvider } from '../lib/edgestore';
 
+
 export const Providers = ({ children }: { children: ReactNode }) => {
   return (
-      <SessionProvider>
-        <EdgeStoreProvider>
+    <SessionProvider>
+      <EdgeStoreProvider>
         {children}
-        </EdgeStoreProvider>
-      </SessionProvider>
+      </EdgeStoreProvider>
+    </SessionProvider>
   );
 };

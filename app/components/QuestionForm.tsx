@@ -5,6 +5,7 @@ import Button from './ui/Button';
 import ImageUpload from './ui/ImageUpload';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface UploadedUrls {
     url: string;
@@ -15,22 +16,29 @@ const QuestionForm = () => {
     const [title, setTitle] = useState<String>()
     const [description, setDescription] = useState<String>()
     const [imageUrls, setImageUrls] = useState<UploadedUrls | null>(null);
-    const { data: session,status} = useSession()
- 
+    const { data: session, status } = useSession()
+
     const userId = session?.user.id
     const handleUploadSuccess = (urls: UploadedUrls) => {
         setImageUrls(urls);
     };
     const PostQuestions = async () => {
         try {
-           const response = await axios.post('/api/addquestion',{
-                userId : userId,
-                title: title,
-                content : description,
-                imageUrl : imageUrls?.url
-           })  
-        } catch (error) {
-            console.log(error);
+            if (title === undefined || description === undefined) {
+                toast.error(`${title == undefined ? "Title is required" : "Description is required"}`)
+            }else{
+                const response = await axios.post('/api/addquestion', {
+                    userId: userId,
+                    title: title,
+                    content: description,
+                    imageUrl: imageUrls?.url
+                })
+                if (response.status == 200) {
+                    toast.success("Question Posted")
+                }
+            }
+        } catch (error: any) {
+            toast.error("Something went wrong")
         }
     }
     return (
@@ -38,10 +46,10 @@ const QuestionForm = () => {
             <h1 className="text-xl font-semibold text-green-400">Post a Question</h1>
             <div className="rounded-lg space-y-6">
                 <div className="space-y-4">
-                    <Input placeholder='Title' onChange={(e)=>{
+                    <Input placeholder='Title' onChange={(e) => {
                         setTitle(e.target.value)
-                    }}/>
-                    <Textarea placeholder='Content' onChange={(e)=>{
+                    }} />
+                    <Textarea placeholder='Content' onChange={(e) => {
                         setDescription(e.target.value)
                     }} />
                     <div className='space-y-2'>
@@ -50,9 +58,10 @@ const QuestionForm = () => {
                     </div>
                 </div>
                 <div className="text-center">
-                    <Button buttonlabel='Post Question' onClick={PostQuestions}/>
+                    <Button buttonlabel='Post Question' onClick={PostQuestions} />
                 </div>
             </div>
+            <Toaster position="top-right" />
         </div>
     );
 };

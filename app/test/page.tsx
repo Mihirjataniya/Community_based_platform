@@ -1,3 +1,5 @@
+'use client'
+import toast, { Toaster } from "react-hot-toast";
 import RecentActivities from "../components/RecentEvents";
 
 
@@ -15,7 +17,6 @@ export default function Home() {
   //   const data = await response.json();
   //   setResult(data.result);
   // };
-
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200 flex items-center justify-center p-5">
     {/* <div className="bg-gray-800 shadow-lg rounded-lg p-8  w-full">
@@ -71,7 +72,8 @@ export default function Home() {
           {urls?.url && <Link href={urls.url} target='_blank'>{urls.url}</Link>}
           {urls?.thumbnailUrl && <Link href={urls.thumbnailUrl} target='_blank'>{urls.thumbnailUrl}</Link>}
         </div> */}
-        <RecentActivities />
+        {/* <RecentActivities /> */}
+       
       </div>
     </div>
   

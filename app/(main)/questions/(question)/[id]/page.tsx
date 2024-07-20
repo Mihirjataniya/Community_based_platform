@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Textarea from '@/app/components/ui/Textarea';
 import Button from '@/app/components/ui/Button';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface Comment {
     id: string;
@@ -62,7 +63,11 @@ const QuestionPage = () => {
                 postId: postId,
                 content: newComment
             })
-            console.log('Comment submitted:', newComment, response);
+            if(response.status === 200){
+                toast.success("Comment added")
+            }else{
+                toast.error("Something went wrong")
+            }
             setNewComment('');
         }
     };
@@ -134,6 +139,7 @@ const QuestionPage = () => {
                     </>
                 )}
             </div>
+            <Toaster position="top-right" />.
         </div>
     );
 };

@@ -6,6 +6,7 @@ import ImageUpload from './ui/ImageUpload';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface UploadedUrls {
   url: string;
@@ -14,28 +15,43 @@ interface UploadedUrls {
 
 const BlogForm = () => {
   const [imageUrls, setImageUrls] = useState<UploadedUrls | null>(null);
-  const [title, setTitle] = useState<String>()
-  const [description, setDescription] = useState<String>()
- 
+  const [title, setTitle] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
+  const [editorData, setEditorData] = useState<string>('');
   const handleUploadSuccess = (urls: UploadedUrls) => {
     setImageUrls(urls);
   };
-  const [editorData, setEditorData] = useState<string>('');
+
   const handleContentChange = (content: string) => {
     setEditorData(content);
   };
   const { data: session, status } = useSession()
   const userId = session?.user.id
 
+  const fields: { name: string, value: string, displayName: string }[] = [
+    { name: "title", value: title, displayName: "Title" },
+    { name: "description", value: description, displayName: "Description" },
+    { name: "editorData", value: editorData, displayName: "Content" },
+  ];
+  const missingFields = fields.filter(field => !field.value.trim());
   const PostBlog = async () => {
     try {
-        const response = await axios.post("/api/addblog", {
-          title: title,
-          description: description,
-          content: editorData,
-          authorId: userId,
-          imageUrl: imageUrls?.url,
-        })
+      if (missingFields.length > 0) {
+        const missingFieldNames = missingFields.map(field => field.displayName).join(", ");
+        console.log(missingFieldNames);
+        toast.error(`${missingFieldNames} ${missingFields.length > 1 ? "are" : "is"} required`);
+    } else {
+      const response = await axios.post("/api/addblog", {
+        title: title,
+        description: description,
+        content: editorData,
+        authorId: userId,
+        imageUrl: imageUrls?.url,
+      })
+      if(response.status === 200){
+        toast.success("Blog posted")
+      }
+    }
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +76,7 @@ const BlogForm = () => {
       <div className="text-center">
         <Button buttonlabel='Post Blog' onClick={PostBlog} />
       </div>
+      <Toaster position="top-right" />
     </div>
   );
 };
