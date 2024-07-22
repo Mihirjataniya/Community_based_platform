@@ -3,6 +3,7 @@ import { CalendarCheck, CircleUser, MessageCircle } from 'lucide-react';
 import formatDate from '@/app/actions/DateFormat';
 import Header from '@/app/components/ui/Header';
 import axios from 'axios';
+import Input from '@/app/components/ui/Input';
 
 const Page = async () => {
   interface Question {
@@ -19,15 +20,7 @@ const Page = async () => {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">
       <Header headertext={"Community Questions"} />
-      <main className="flex flex-col items-center justify-start flex-1 px-5 py-10 space-y-12">
-        {/* Search Bar */}
-        <div className="w-full max-w-6xl">
-          <input
-            type="text"
-            placeholder="Search for doubts..."
-            className="w-full p-4 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
-        </div>
+      <main className="flex flex-col items-center justify-start flex-1 px-5 py-10 space-y-12">  
         <div className="w-full max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
             {questions.map((question:Question) => (

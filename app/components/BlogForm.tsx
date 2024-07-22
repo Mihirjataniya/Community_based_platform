@@ -18,6 +18,7 @@ const BlogForm = () => {
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [editorData, setEditorData] = useState<string>('');
+  
   const handleUploadSuccess = (urls: UploadedUrls) => {
     setImageUrls(urls);
   };

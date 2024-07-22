@@ -121,7 +121,7 @@ const QuestionPage = () => {
                                                 <CalendarCheck size={16} /> {formatDate(comment.createdAt)}
                                             </p>
                                         </div>
-                                        <p className="text-gray-300">
+                                        <p  style={{ whiteSpace: 'pre-wrap' }} className="text-gray-300">
                                             {isExpanded ? comment.content : `${comment.content.slice(0, 150)}...`}
                                             {comment.content.length > 100 && (
                                                 <button

@@ -8,7 +8,8 @@ import Logo from './ui/Logo';
 import Button from './ui/Button';
 import Sidebar from './Sidebar';
 import { AlignJustify } from 'lucide-react';
-import { Toaster } from 'react-hot-toast';
+import ProfileButton from './ui/ProfileButton';
+
 
 interface NavItem {
   href: string;
@@ -41,25 +42,10 @@ const Navbar: React.FC = () => {
             </Link>
           ))}
         </div>
+        <div className='max-sm:hidden'>
+          <ProfileButton />
+        </div>
 
-        {status === "authenticated" ?
-          <div className="max-sm:hidden flex gap-5 items-center px-4 py-2 bg-gray-800 rounded-lg shadow-md transform transition-transform duration-300 ease-in-out hover:scale-110">
-            <p className="text-lg font-semibold text-gray-200">
-              {name}
-            </p>
-            <div className="bg-green-500 text-white p-3 rounded-full flex items-center justify-center w-10 h-10 text-xl font-bold">
-              {name?.slice(0, 1).toUpperCase()}
-            </div>
-          </div> :
-          <div className="max-sm:hidden space-x-5">
-            <Link href={'/signin'}>
-              <Button buttonlabel='Log In' />
-            </Link>
-            <Link href={'/signup'}>
-              <Button buttonlabel='Sign Up' />
-            </Link>
-          </div>
-        }
         <button
           className="hidden max-sm:block text-gray-200 focus:outline-none ml-4"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -68,7 +54,7 @@ const Navbar: React.FC = () => {
         </button>
       </div>
       <Sidebar isOpen={isDropdownOpen} closeSidebar={() => setIsDropdownOpen(false)} />
-  
+
     </div>
   );
 };
