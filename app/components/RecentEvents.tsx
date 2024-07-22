@@ -22,7 +22,7 @@ interface Event {
 }
 
 interface Blog {
-    id: string;
+    blogId: string;
     title: string;
     description: string;
     author: string;
@@ -31,73 +31,65 @@ interface Blog {
 }
 
 const RecentActivities = async () => {
+    const questionsResponse = await axios.get('http://localhost:3000/api/getquestions');
+    const eventsResponse = await axios.get('http://localhost:3000/api/getevents');
+    const blogsResponse = await axios.get('http://localhost:3000/api/getblogs');
 
-
-    const Questionsresponse = await axios.get('http://localhost:3000/api/getquestions');
-    const questions = Questionsresponse.data.slice(0,2)
-    const Eventsresponse = await axios.get('http://localhost:3000/api/getevents');
-    const events = Eventsresponse.data.slice(0,2)
-    const Blogsresponse = await axios.get('http://localhost:3000/api/getblogs');
-    const blogs = Blogsresponse.data.slice(0,2)
-
+    const questions: Question[] = questionsResponse.data.slice(0, 2);
+    const events: Event[] = eventsResponse.data.slice(0, 2);
+    const blogs: Blog[] = blogsResponse.data.slice(0, 2);
 
     return (
         <div>
             <div className="mb-12">
                 <h2 className="text-3xl font-bold text-green-400 mb-6">Recent Questions</h2>
                 <div className="space-y-4">
-                    {questions.map((question: Question) => (
+                    {questions.map((question) => (
                         <div key={question.postId} className="bg-gray-800 p-4 rounded-lg shadow-lg">
-                            <h3 className="text-2xl font-bold text-green-400">{question.title}</h3>
-                            <p className="mt-2 text-gray-300">{question.content}</p>
-                            <Link href={`/question/${question.postId}`}>
-                                <button className="mt-4 bg-green-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300">
-                                    Read More
-                                </button>
+                            <Link href={`/questions/${question.postId}`}>
+                                <h3 className="text-2xl font-bold text-green-400">{question.title}</h3>
+                                <p className="mt-2 text-gray-300">{question.content.slice(0, 200)}</p>
                             </Link>
                         </div>
                     ))}
                 </div>
+                <Link href={'/questions'} className='text-green-400 p-2'>See all...</Link>
             </div>
 
             <div className="mb-12">
                 <h2 className="text-3xl font-bold text-blue-400 mb-6">Upcoming Events</h2>
                 <div className="space-y-4">
-                    {events.map((event: Event) => (
+                    {events.map((event) => (
                         <div key={event.eventId} className="bg-gray-800 p-4 rounded-lg shadow-lg">
-                            <h3 className="text-2xl font-bold text-blue-400">{event.title}</h3>
-                            <p className="mt-2 text-gray-300">{event.description}</p>
-                            <p className="mt-2 text-gray-300"><strong>Date:</strong> {new Date(event.date).toDateString()}</p>
-                            <p className="mt-2 text-gray-300"><strong>Location:</strong> {event.location}</p>
-                            <p className="mt-2 text-gray-300"><strong>Organizer:</strong> {event.organizer}</p>
-                            <Link href={`/event/${event.eventId}`}>
-                                <button className="mt-4 bg-blue-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
-                                    Read More
-                                </button>
+                            <Link href={`/events/${event.eventId}`}>
+                                <h3 className="text-2xl font-bold text-blue-400">{event.title}</h3>
+                                <p className="mt-2 text-gray-300">{event.description}</p>
+                                <p className="mt-2 text-gray-300"><strong>Date:</strong> {new Date(event.date).toDateString()}</p>
+                                <p className="mt-2 text-gray-300"><strong>Location:</strong> {event.location}</p>
+                                <p className="mt-2 text-gray-300"><strong>Organizer:</strong> {event.organizer}</p>
                             </Link>
                         </div>
                     ))}
                 </div>
+                <Link href={'/events'} className='text-blue-400 p-2'>See all...</Link>
             </div>
 
             <div>
                 <h2 className="text-3xl font-bold text-purple-400 mb-6">Recent Blogs</h2>
                 <div className="space-y-4">
-                    {blogs.map((blog: Blog) => (
-                        <div key={blog.id} className="bg-gray-800 p-4 rounded-lg shadow-lg">
+                    {blogs.map((blog) => (
+                        <div key={blog.blogId} className="bg-gray-800 p-4 rounded-lg shadow-lg">
+                            <Link href={`/blogs/${blog.blogId}`}>
                             <h3 className="text-2xl font-bold text-purple-400">{blog.title}</h3>
                             <p className="mt-2 text-gray-300">{blog.description}</p>
                             <p className="mt-2 text-gray-300"><strong>Author:</strong> {blog.author}</p>
                             <p className="mt-2 text-gray-300"><strong>Date:</strong> {new Date(blog.date).toDateString()}</p>
-                            <Link href={`/blog/${blog.id}`}>
-                                <button className="mt-4 bg-purple-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300">
-                                    Read More
-                                </button>
                             </Link>
                         </div>
                     ))}
                 </div>
             </div>
+            <Link href={'/blogs'} className='text-purple-400 p-2'>See all...</Link>
         </div>
     );
 };

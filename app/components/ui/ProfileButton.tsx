@@ -18,7 +18,7 @@ const ProfileButton = () => {
                         {name?.slice(0, 1).toUpperCase()}
                     </div>
                 </Link> :
-                <div className="space-x-5">
+                <div className="space-x-5 max-sm:flex max-sm:flex-col max-sm:items-center max-sm:space-y-4 max-sm:justify-between">
                     <Link href={'/signin'}>
                         <Button buttonlabel='Log In' />
                     </Link>

@@ -34,7 +34,6 @@ const QuestionPage = () => {
     const route = usePathname();
     const [question, setQuestion] = useState<Question>();
     const [expandedComments, setExpandedComments] = useState<string[]>([]);
-
     const [newComment, setNewComment] = useState<string>('');
     const { data: session, status } = useSession()
     const userId = session?.user.id
